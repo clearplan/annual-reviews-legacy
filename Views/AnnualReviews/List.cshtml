@@ -1,7 +1,7 @@
 ﻿@model IEnumerable<CP.AnnualReviews.ViewModels.AnnualReviewModel>
 
 @{ 
-    ViewData["Title"] = "Annual Review List";
+    ViewData["Title"] = "Annual Reviews";
 }
 
 <h2>@ViewData["Title"]</h2>
@@ -9,21 +9,17 @@
 <br />
 
 <div class="mb-3">
-    <input type="text" class="form-control" id="search" placeholder="Type anything to filter the table" autofocus>
+    <input type="text" class="form-control" id="search" placeholder="Type to filter the table" autofocus>
 </div>
-
-<br />
 
 <table class="table">
     <thead>
         <tr>
             <th>Id</th>
             <th>Name</th>
-            <th>Email</th>
-            <th>Review Name</th>
-            <th>Review Date</th>
-            <th>Comments</th>
             <th>Manager</th>
+            <th>Review Date</th>
+            <th></th>
         </tr>
     </thead>
     <tbody>
@@ -32,11 +28,11 @@
             <tr>
                 <td>@data.Id</td>
                 <td>@data.FullName</td>
-                <td>@data.Email</td>
-                <td>@data.ReviewName</td>
-                <td>@data.ReviewDate</td>
-                <td>@data.Comments</td>
                 <td>@data.CommentsBy</td>
+                <td>@data.ReviewDate.Date.ToShortDateString()</td>
+                <td>
+                    <a asp-controller="AnnualReviews" asp-action="UserReview" asp-route-id="@data.Id">View Review</a>
+                </td>
             </tr>
         }
     </tbody>
