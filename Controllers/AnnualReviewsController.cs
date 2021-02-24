@@ -58,16 +58,8 @@ namespace CP.AnnualReviews.Controllers
             return View(query);
         }
 
-        // GET: /annualreviews/users 
-        // displays a condensed list of annual reviews for all users.
-        public async Task<IActionResult> Users()
-        {
-            var reviews = await _context.TblAnnualReviews.ToListAsync();
-            return View(reviews);
-        }
-
-        // GET: /annualreviews/users/{id} 
-        [Route("/annualreviews/users/review/{id}")]
+        // GET: /annualreviews/user/{id} 
+        [Route("/annualreviews/user/{id}")]
         public IActionResult UserReview(int? id)
         {
             if (id == null)
