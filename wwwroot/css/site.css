@@ -28,6 +28,26 @@ a {
     display: none !important;
 }
 
+.justify-around {
+    justify-content: space-around;
+}
+
+.justify-between {
+    justify-content: space-between;
+}
+
+.justify-center {
+    justify-content: center;
+}
+
+.justify-start {
+    justify-content: flex-start;
+}
+
+.justify-end {
+    justify-content: flex-end;
+}
+
 /* Sticky footer styles
 -------------------------------------------------- */
 html {
