@@ -27,10 +27,10 @@ namespace CP.AnnualReviews.Models
         public string Industries { get; set; }
 
         [NotMapped]
-        public string Tools { get; set; }
+        public List<string> Tools { get; set; }
 
         [NotMapped]
-        public string Phases { get; set; }
+        public List<string> Phases { get; set; }
 
         [NotMapped]
         public string Notes { get; set; }

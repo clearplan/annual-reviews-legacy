@@ -114,14 +114,13 @@ namespace CP.AnnualReviews.Controllers
                                              }).ToList(),
                              ToolsoftheTrade = (from t in _context.TblAnnualReviewToolsoftheTradeCategories
                                                 join r in _context.TblAnnualReviewToolsoftheTradeResponses on t.Id equals r.ToolsoftheTradeId
-                                                join tt in _context.TblAnnualReviewToolsoftheTrades on r.ToolsoftheTradeId equals tt.ToolCategoryId into trade
-                                                from tt in trade.DefaultIfEmpty()
+                                                //join tt in _context.TblAnnualReviewToolsoftheTrades on r.ToolsoftheTradeId equals tt.ToolCategoryId into trade
+                                                //from tt in trade.DefaultIfEmpty()
                                                 where r.AnnualReviewId == id
                                                 select new TblAnnualReviewToolsoftheTradeCategory
                                                 { 
                                                     ToolCategoryName = t.ToolCategoryName,
-                                                    ToolRating = r.ToolsoftheTradeRating,
-                                                    ToolName = tt.ToolName
+                                                    ToolRating = r.ToolsoftheTradeRating
                                                 })
                                                 .ToList()
                          })

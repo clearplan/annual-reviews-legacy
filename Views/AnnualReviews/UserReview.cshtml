@@ -3,7 +3,7 @@
     ViewData["Title"] = "User Review";
 }
 
-<h3>Annual Review for @Model.FullName</h3>
+<h3>@Model.FullName - Annual Review</h3>
 <br />
 <section id="generalQuestions">
     <h4>General Questions</h4>
@@ -26,20 +26,20 @@
     @foreach (var c in Model.Competencies)
     {
         <dl class="row">
-            <dt class="col-sm-2">Competency:</dt>
-            <dd class="col-sm-10">@c.CompetencyText</dd>
-            <dt class="col-sm-2">Description:</dt>
-            <dd class="col-sm-10">@c.CompetencyDescription</dd>
-            <dt class="col-sm-2">Program Phases:</dt>
-            <dd class="col-sm-10"></dd>
-            <dt class="col-sm-2">Tools:</dt>
-            <dd class="col-sm-10"></dd>
-            <dt class="col-sm-2">Industry:</dt>
-            <dd class="col-sm-10">@c.Industries</dd>
-            <dt class="col-sm-2">Notes:</dt>
-            <dd class="col-sm-10">@c.Notes</dd>
-            <dt class="col-sm-2">Experience &amp; Capability Rating:</dt>
-            <dd class="col-sm-10">@c.ExperienceAndCapabilityRatingId</dd>
+            <dt class="col-sm-5">Competency:</dt>
+            <dd class="col-sm-5">@c.CompetencyText</dd>
+            <dt class="col-sm-5">Description:</dt>
+            <dd class="col-sm-5">@c.CompetencyDescription</dd>
+            <dt class="col-sm-5">Experience &amp; Capability Rating:</dt>
+            <dd class="col-sm-5">@c.ExperienceAndCapabilityRatingId</dd>
+            <dt class="col-sm-5">Program Phases:</dt>
+            <dd class="col-sm-5"></dd>
+            <dt class="col-sm-5">Tools:</dt>
+            <dd class="col-sm-5"></dd>
+            <dt class="col-sm-5">Industry:</dt>
+            <dd class="col-sm-5">@(!string.IsNullOrEmpty(c.Industries) ? c.Industries : "N/A")</dd>
+            <dt class="col-sm-5">Notes:</dt>
+            <dd class="col-sm-5">@(!string.IsNullOrEmpty(c.Notes) ? c.Notes : "N/A")</dd>
         </dl>
         <hr />
     }
@@ -53,8 +53,11 @@
         <dl class="row">
             <dt class="col-sm-5">@t.ToolCategoryName</dt>
             <dt class="col-sm-5">Experience &amp; Capability Rating:</dt>
-            <dd class="col-sm-5">@t.ToolName</dd>
-            <dd class="col-sm-5">@t.ToolRating</dd>
+            @for (int i = 0; i < 3; i++)
+            {
+                <dd class="col-sm-5">@i</dd>
+                <dd class="col-sm-5">@t.ToolRating</dd>
+            }
         </dl>
         <hr />
     }
@@ -64,11 +67,11 @@
     <h5>Management Comments</h5>
     <hr />
     <dl class="row">
-        <dt class="col-sm-2">Manager</dt>
-        <dd class="col-sm-10">@Model.CommentsBy</dd>
-        <dt class="col-sm-2">Comments date</dt>
-        <dd class="col-sm-10">@Model.CommentsDate</dd>
-        <dt class="col-sm-2">Comments</dt>
-        <dd class="col-sm-10">@Model.Comments</dd>
+        <dt class="col-sm-5">Manager</dt>
+        <dd class="col-sm-5">@(!string.IsNullOrEmpty(Model.CommentsBy) ? Model.CommentsBy : "N/A")</dd>
+        <dt class="col-sm-5">Comments date</dt>
+        <dd class="col-sm-5">@(Model.CommentsDate.HasValue ? Model.CommentsDate : "N/A")</dd>
+        <dt class="col-sm-5">Comments</dt>
+        <dd class="col-sm-5">@(!string.IsNullOrEmpty(Model.Comments) ? Model.Comments : "N/A")</dd>
     </dl>
 </section>
