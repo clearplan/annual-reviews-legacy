@@ -1,0 +1,221 @@
+﻿@{
+    ViewData["Title"] = "Annual Review Site Map";
+}
+
+<h1>@ViewData["Title"]</h1>
+<br />
+
+<h3>Annual Reviews</h3>
+<div class="container">
+    <br />
+    <div class="row">
+        <div class="col-sm">
+            <p>
+                <a asp-controller="AnnualReviews" asp-action="Index">Annual Reviews</a>
+            </p>
+            <p>
+                <a asp-controller="AnnualReviews" asp-action="List">Annual Reviews (Aggregate Model)</a>
+            </p>
+            <p>
+                <a asp-controller="ManagementComments" asp-action="Index">Annual Review Management Comments</a>
+            </p>
+            <p>
+                <a asp-controller="AnnualReviewGeneralQuestionResponses" asp-action="Index">Annual Review General Question Responses</a>
+            </p>
+            <p>
+                <a asp-controller="AnnualReviewsGeneralQuestions" asp-action="Index">Annual Review General Questions</a>
+            </p>
+        </div>
+        <div class="col-sm">
+            <p>
+                <a asp-controller="Competencies" asp-action="Index">Annual Review Competencies</a>
+            </p>
+            <p>
+                <a asp-controller="AnnualReviewCompetencyResponses" asp-action="Index">Annual Review Competency Responses</a>
+            </p>
+            <p>
+                <a asp-controller="AnnualReviewCompetencyToolsResponses" asp-action="Index">Annual Review Competency Tools Responses</a>
+            </p>
+            <p>
+                <a asp-controller="AnnualReviewsProgramPhases" asp-action="Index">Annual Review Program Phases</a>
+            </p>
+            <p>
+                <a asp-controller="AnnualReviewsProgramPhaseResponses" asp-action="Index">Annual Review Program Phase Responses</a>
+            </p>
+        </div>
+        <div class="col-sm">
+            <p>
+                <a asp-controller="AnnualReviewToolsoftheTrades" asp-action="Index">Annual Review Tools of the Trade</a>
+            </p>
+            <p>
+                <a asp-controller="AnnualReviewToolsoftheTradeResponses" asp-action="Index">Annual Review Tools of the Trade Responses</a>
+            </p>
+            <p>
+                <a asp-controller="AnnualReviewAdditionalToolsoftheTradeResponses" asp-action="Index">Annual Review Additional Tools of the Trade Responses</a>
+            </p>
+            <p>
+                <a asp-controller="AnnualReviewToolsoftheTradeCategories" asp-action="Index">Annual Review Tools of the Trade Categories</a>
+            </p>
+            <p>
+                <a asp-controller="AnnualReviewsIndustryResponses" asp-action="Index">Annual Review Industry Responses</a>
+            </p>
+        </div>
+    </div>
+</div>
+
+<h3>Resumes</h3>
+<div class="container">
+    <br />
+    <div class="row">
+        <div class="col-sm">
+            <p>
+                <a asp-controller="Resumes" asp-action="Index">Resumes</a>
+            </p>
+            <p>
+                <a asp-controller="ResumePositionHistories" asp-action="Index">Resume Position Histories</a>
+            </p>
+            <p>
+                <a asp-controller="ResumeCerts" asp-action="Index">Resume Training/Education Certs</a>
+            </p>
+        </div>
+        <div class="col-sm">
+            <p>
+                <a asp-controller="ResumeFiles" asp-action="Index">Resume Files</a>
+            </p>
+            <p>
+                <a asp-controller="ResumeClearances" asp-action="Index">Resume Clearances</a>
+            </p>
+        </div>
+        <div class="col-sm">
+            <p>
+                <a asp-controller="ResumeProjectExperiences" asp-action="Index">Resume Project Experience</a>
+            </p>
+            <p>
+                <a asp-controller="ResumeRelevantTools" asp-action="Index">Resume Relevant Tools</a>
+            </p>
+            <p>
+                <a asp-controller="ResumeAdditionalRelevantTools" asp-action="Index">Resume Additional Relevant Tools</a>
+            </p>
+        </div>
+    </div>
+</div>
+
+<h3>Kudos</h3>
+<div class="container">
+    <br />
+    <div class="row">
+        <div class="col-sm">
+            <p>
+                <a asp-controller="Kudos" asp-action="Index">Kudos</a>
+            </p>
+        </div>
+        <div class="col-sm">
+            <p>
+                <a asp-controller="KudosEmails" asp-action="Index">Kudos Emails</a>
+            </p>
+        </div>
+        <div class="col-sm"></div>
+    </div>
+</div>
+
+<h3>Resources</h3>
+<div class="container">
+    <br />
+    <div class="row">
+        <div class="col-sm">
+            <p>
+                <a asp-controller="Resources" asp-action="Index">Resources</a>
+            </p>
+        </div>
+        <div class="col-sm">
+            <p>
+                <a asp-controller="ResourceRoles" asp-action="Index">Resource Roles</a>
+            </p>
+        </div>
+        <div class="col-sm">
+            <p>
+                <a asp-controller="ResourceStatus" asp-action="Index">Resource Status</a>
+            </p>
+        </div>
+    </div>
+</div>
+
+<h3>Tasks</h3>
+<div class="container">
+    <br />
+    <div class="row">
+        <div class="col-sm">
+            <p>
+                <a asp-controller="Tasks" asp-action="Index">Tasks</a>
+            </p>
+        </div>
+        <div class="col-sm">
+            <p>
+                <a asp-controller="TaskStatus" asp-action="Index">Task Status</a>
+            </p>
+        </div>
+        <div class="col-sm">
+            <p>
+                <a asp-controller="TaskTypes" asp-action="Index">Task Types</a>
+            </p>
+        </div>
+    </div>
+</div>
+
+<h3>Constants</h3>
+<div class="container">
+    <br />
+    <div class="row">
+        <div class="col-sm">
+            <p>
+                <a asp-controller="ToolsoftheTrades" asp-action="Index">Tools of the Trade</a>
+            </p>
+            <p>
+                <a asp-controller="ToolsoftheTradeCategories" asp-action="Index">Tools of the Trade Categories</a>
+            </p>
+            <p>
+                <a asp-controller="ClearanceAgencies" asp-action="Index">Clearance Agencies</a>
+            </p>
+            <p>
+                <a asp-controller="Departments" asp-action="Index">Departments</a>
+            </p>
+            <p>
+                <a asp-controller="ReviewStatus" asp-action="Index">Review Status</a>
+            </p>
+        </div>
+        <div class="col-sm">
+            <p>
+                <a asp-controller="GeneralQuestions" asp-action="Index">General Questions</a>
+            </p>
+            <p>
+                <a asp-controller="Clearances" asp-action="Index">Clearances</a>
+            </p>
+            <p>
+                <a asp-controller="ClearanceInvestigationTypes" asp-action="Index">Clearance Investigation Types</a>
+            </p>
+            <p>
+                <a asp-controller="ExperienceCapabilityScales" asp-action="Index">Experience Capability Scales</a>
+            </p>
+            <p>
+                <a asp-controller="TaskStatus" asp-action="Index">Task Status</a>
+            </p>
+        </div>
+        <div class="col-sm">
+            <p>
+                <a asp-controller="ProgramPhases" asp-action="Index">Program Phases</a>
+            </p>
+            <p>
+                <a asp-controller="ClearanceAdditionalInvestigations" asp-action="Index">Clearance Additional Investigations</a>
+            </p>
+            <p>
+                <a asp-controller="ClearanceProgramAccesses" asp-action="Index">Clearance Program Access</a>
+            </p>
+            <p>
+                <a asp-controller="Industries" asp-action="Index">Industries</a>
+            </p>
+            <p>
+                <a asp-controller="ResumeStatus" asp-action="Index">Resume Status</a>
+            </p>
+        </div>
+    </div>
+</div>

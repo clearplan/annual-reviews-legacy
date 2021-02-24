@@ -1,0 +1,74 @@
+﻿@model CP.AnnualReviews.ViewModels.AnnualReviewModel
+@{
+    ViewData["Title"] = "User Review";
+}
+
+<h3>Annual Review for @Model.FullName</h3>
+<br />
+<section id="generalQuestions">
+    <h4>General Questions</h4>
+    <hr />
+    <dl>
+        @foreach (var question in Model.Questions)
+        {
+            <dt>
+                <span>@question.QuestionNumber<em>.</em></span>
+                <span>@question.QuestionText</span>
+            </dt>
+            <dd>@question.Response</dd>
+        }
+    </dl>
+</section>
+
+<section id="competencies">
+    <h4>Competencies</h4>
+    <hr />
+    @foreach (var c in Model.Competencies)
+    {
+        <dl class="row">
+            <dt class="col-sm-2">Competency:</dt>
+            <dd class="col-sm-10">@c.CompetencyText</dd>
+            <dt class="col-sm-2">Description:</dt>
+            <dd class="col-sm-10">@c.CompetencyDescription</dd>
+            <dt class="col-sm-2">Program Phases:</dt>
+            <dd class="col-sm-10"></dd>
+            <dt class="col-sm-2">Tools:</dt>
+            <dd class="col-sm-10"></dd>
+            <dt class="col-sm-2">Industry:</dt>
+            <dd class="col-sm-10">@c.Industries</dd>
+            <dt class="col-sm-2">Notes:</dt>
+            <dd class="col-sm-10">@c.Notes</dd>
+            <dt class="col-sm-2">Experience &amp; Capability Rating:</dt>
+            <dd class="col-sm-10">@c.ExperienceAndCapabilityRatingId</dd>
+        </dl>
+        <hr />
+    }
+</section>
+
+<section id="toolsoftheTrade">
+    <h4>Tools of the Trade</h4>
+    <hr />
+    @foreach (var t in Model.ToolsoftheTrade)
+    {
+        <dl class="row">
+            <dt class="col-sm-5">@t.ToolCategoryName</dt>
+            <dt class="col-sm-5">Experience &amp; Capability Rating:</dt>
+            <dd class="col-sm-5">@t.ToolName</dd>
+            <dd class="col-sm-5">@t.ToolRating</dd>
+        </dl>
+        <hr />
+    }
+</section>
+
+<section id="managementComments">
+    <h5>Management Comments</h5>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">Manager</dt>
+        <dd class="col-sm-10">@Model.CommentsBy</dd>
+        <dt class="col-sm-2">Comments date</dt>
+        <dd class="col-sm-10">@Model.CommentsDate</dd>
+        <dt class="col-sm-2">Comments</dt>
+        <dd class="col-sm-10">@Model.Comments</dd>
+    </dl>
+</section>

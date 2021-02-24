@@ -1,0 +1,58 @@
+﻿@model CP.AnnualReviews.Models.TblAnnualReviewCompetencyResponse
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h1>Create</h1>
+
+<h4>TblAnnualReviewCompetencyResponse</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="AnnualReviewId" class="control-label"></label>
+                <input asp-for="AnnualReviewId" class="form-control" />
+                <span asp-validation-for="AnnualReviewId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="CompetencyNumber" class="control-label"></label>
+                <input asp-for="CompetencyNumber" class="form-control" />
+                <span asp-validation-for="CompetencyNumber" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="CompetencyResponseExperienceCapabilityRatingId" class="control-label"></label>
+                <input asp-for="CompetencyResponseExperienceCapabilityRatingId" class="form-control" />
+                <span asp-validation-for="CompetencyResponseExperienceCapabilityRatingId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="CompetencyResponseIndustry" class="control-label"></label>
+                <input asp-for="CompetencyResponseIndustry" class="form-control" />
+                <span asp-validation-for="CompetencyResponseIndustry" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="CompetencyResponseGrowthInterest" class="control-label"></label>
+                <input asp-for="CompetencyResponseGrowthInterest" class="form-control" />
+                <span asp-validation-for="CompetencyResponseGrowthInterest" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="CompetencyResponseNotes" class="control-label"></label>
+                <input asp-for="CompetencyResponseNotes" class="form-control" />
+                <span asp-validation-for="CompetencyResponseNotes" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

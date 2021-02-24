@@ -1,0 +1,63 @@
+﻿@model CP.AnnualReviews.Models.TblResumePositionHistory
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h1>Create</h1>
+
+<h4>TblResumePositionHistory</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="ResumeId" class="control-label"></label>
+                <input asp-for="ResumeId" class="form-control" />
+                <span asp-validation-for="ResumeId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="PositionTitle" class="control-label"></label>
+                <input asp-for="PositionTitle" class="form-control" />
+                <span asp-validation-for="PositionTitle" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="DepartmentDivision" class="control-label"></label>
+                <input asp-for="DepartmentDivision" class="form-control" />
+                <span asp-validation-for="DepartmentDivision" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="CompanyOrganizationName" class="control-label"></label>
+                <input asp-for="CompanyOrganizationName" class="form-control" />
+                <span asp-validation-for="CompanyOrganizationName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="StartDate" class="control-label"></label>
+                <input asp-for="StartDate" class="form-control" />
+                <span asp-validation-for="StartDate" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="EndDate" class="control-label"></label>
+                <input asp-for="EndDate" class="form-control" />
+                <span asp-validation-for="EndDate" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="SortOrderNum" class="control-label"></label>
+                <input asp-for="SortOrderNum" class="form-control" />
+                <span asp-validation-for="SortOrderNum" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

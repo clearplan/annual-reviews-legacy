@@ -1,0 +1,71 @@
+﻿@model IEnumerable<CP.AnnualReviews.ViewModels.AnnualReviewModel>
+
+@{ 
+    ViewData["Title"] = "Annual Review List";
+}
+
+<h2>@ViewData["Title"]</h2>
+
+<br />
+
+<div class="mb-3">
+    <input type="text" class="form-control" id="search" placeholder="Type anything to filter the table" autofocus>
+</div>
+
+<br />
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Review Name</th>
+            <th>Review Date</th>
+            <th>Comments</th>
+            <th>Manager</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach(var data in Model)
+        {
+            <tr>
+                <td>@data.Id</td>
+                <td>@data.FullName</td>
+                <td>@data.Email</td>
+                <td>@data.ReviewName</td>
+                <td>@data.ReviewDate</td>
+                <td>@data.Comments</td>
+                <td>@data.CommentsBy</td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<script>
+    const search = document.querySelector('#search');
+    const tbody = document.querySelector('tbody');
+
+    search.addEventListener('keyup', function (e) {
+        let target = e.target;
+        searchTable(target.value);
+    });
+
+    function searchTable(value) {
+        let tr, td, filter;
+        filter = value.toLowerCase();
+        tr = tbody.querySelectorAll('tr');
+        for (let i = 0; i < tr.length; i++) {
+            let content = tr[i].textContent || tr[i].innerText || tr[i].innerHTML;
+            content = content.replace(/[\s]+/g, ' ');
+            if (content) {
+                if (content.toLowerCase().includes(filter)) {
+                    tr[i].classList.remove('hidden');
+                }
+                else {
+                    tr[i].classList.add('hidden');
+                }
+            }
+        }
+    }
+</script>
