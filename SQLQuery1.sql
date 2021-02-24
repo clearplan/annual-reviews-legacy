@@ -14,6 +14,13 @@ go
 --inner join tbl_AnnualReview_ToolsoftheTrade as tt on tr.ToolsoftheTradeID = tt.ToolCategoryID
 --where tr.AnnualReviewID = 69;
 
-select * from tbl_AnnualReview_CompetencyTools_Responses as tr
-inner join tbl_AnnualReview_ToolsoftheTrade_Responses as tt on tr.ToolID = tt.ToolsoftheTradeID
-where tr.AnnualReviewID = 69;
+--select * from tbl_AnnualReview_CompetencyTools_Responses as tr
+--inner join tbl_AnnualReview_ToolsoftheTrade_Responses as tt on tr.ToolID = tt.ToolsoftheTradeID
+--where tr.AnnualReviewID = 69;
+
+--select * from tbl_AnnualReviews ar 
+--inner join tbl_ReviewStatuses rs on rs.ID = ar.ReviewStatusID
+--where ar.ID = 69
+
+select * from tbl_AnnualReviews ar
+left outer join tbl_AnnualReviews_Management_Comments c on c.AnnualReviewID = ar.ID;

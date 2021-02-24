@@ -24,35 +24,9 @@ namespace CP.AnnualReviews.Controllers
             this._context = context;
         }
 
-        public async Task<IActionResult> Index()
+        public IActionResult Index()
         {
-            var reviews = await _context.TblAnnualReviews.ToListAsync();
-            var resources = await _context.TblResources.ToListAsync();
-            var comments = await _context.TblAnnualReviewsManagementComments.ToListAsync();
-            var reviewStatuses = await _context.TblReviewStatuses.ToListAsync();
-
-            var query = (from ar in reviews
-                         join rs in resources on ar.ResourceId equals rs.ResourceId
-                         join mc in comments on ar.Id equals mc.AnnualReviewId
-                         join rvs in reviewStatuses on ar.ReviewStatusId equals rvs.Id
-                         select new AnnualReviewModel
-                         {
-                             Id = ar.Id,
-                             ResourceId = ar.ResourceId,
-                             ReviewDate = ar.ReviewDate,
-                             ReviewName = ar.ReviewName,
-                             Email = rs.Email,
-                             Phone = rs.Phone,
-                             StartDate = rs.StartDate,
-                             FirstName = rs.FirstName,
-                             LastName = rs.LastName,
-                             FullName = rs.FullName,
-                             Comments = mc.Comments,
-                             CommentsBy = mc.CommentsBy,
-                             CommentsDate = mc.CommentsDate
-                         }).ToList();
-
-            return View(query);
+            return RedirectToAction("Index", "AnnualReviews");
         }
 
         [AllowAnonymous]

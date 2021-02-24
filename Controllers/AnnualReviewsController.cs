@@ -22,13 +22,6 @@ namespace CP.AnnualReviews.Controllers
         // GET: AnnualReviews
         public async Task<IActionResult> Index()
         {
-            var data = await _context.TblAnnualReviews.ToListAsync();
-            return View(data);
-        }
-
-        // GET: /annualreviews/list
-        public async Task<IActionResult> List()
-        {
             var reviews = await _context.TblAnnualReviews.ToListAsync();
             var resources = await _context.TblResources.ToListAsync();
             var comments = await _context.TblAnnualReviewsManagementComments.ToListAsync();
@@ -36,7 +29,8 @@ namespace CP.AnnualReviews.Controllers
 
             var query = (from ar in reviews
                          join rs in resources on ar.ResourceId equals rs.ResourceId
-                         join mc in comments on ar.Id equals mc.AnnualReviewId
+                         join mc in comments on ar.Id equals mc.AnnualReviewId into c
+                         from mc in c.DefaultIfEmpty()
                          join rvs in reviewStatuses on ar.ReviewStatusId equals rvs.Id
                          select new AnnualReviewModel
                          {
@@ -44,31 +38,33 @@ namespace CP.AnnualReviews.Controllers
                              ResourceId = ar.ResourceId,
                              ReviewDate = ar.ReviewDate,
                              ReviewName = ar.ReviewName,
+                             ReviewStatusId = rvs.Id,
+                             ReviewStatus = rvs.Status,
                              Email = rs.Email,
-                             Phone = rs.Phone,
                              StartDate = rs.StartDate,
-                             FirstName = rs.FirstName,
-                             LastName = rs.LastName,
                              FullName = rs.FullName,
-                             Comments = mc.Comments,
-                             CommentsBy = mc.CommentsBy,
-                             CommentsDate = mc.CommentsDate
-                         }).ToList();
+                             CommentsBy = mc != null ? mc.CommentsBy : ""
+                         })
+                         .ToList();
+
+            ViewBag.Count = query.Count;
 
             return View(query);
         }
 
-        // GET: /annualreviews/user/{id} 
-        [Route("/annualreviews/user/{id}")]
-        public IActionResult UserReview(int? id)
+        // GET: /annualreviews/review/{id} 
+        [Route("/annualreviews/review/{id}")]
+        public IActionResult Review(int? id)
         {
             if (id == null)
             {
-                return RedirectToAction(nameof(List));
+                return RedirectToAction(nameof(Index));
             }
 
             // this sucks
             var query = (from review in _context.TblAnnualReviews
+                         join status in _context.TblReviewStatuses on review.ReviewStatusId equals status.Id into s
+                         from status in s.DefaultIfEmpty()
                          join resource in _context.TblResources on review.ResourceId equals resource.ResourceId into r
                          from resource in r.DefaultIfEmpty()
                          join comment in _context.TblAnnualReviewsManagementComments on review.Id equals comment.AnnualReviewId into c
@@ -79,6 +75,8 @@ namespace CP.AnnualReviews.Controllers
                              Email = resource.Email,
                              FullName = resource.FullName,
                              ReviewDate = review.ReviewDate,
+                             ReviewStatusId = status.Id,
+                             ReviewStatus = status.Status,
                              Comments = comment.Comments,
                              CommentsBy = comment.CommentsBy,
                              CommentsDate = comment.CommentsDate,
@@ -86,7 +84,7 @@ namespace CP.AnnualReviews.Controllers
                                           join response in _context.TblAnnualReviewGeneralQuestionResponses on question.Id equals response.GeneralQuestionId
                                           where response.AnnualReviewId == id
                                           select new TblAnnualReviewGeneralQuestion
-                                          { 
+                                          {
                                               QuestionNumber = question.QuestionNumber,
                                               QuestionText = question.QuestionText,
                                               Response = response.GeneralQuestionResponse
@@ -95,24 +93,42 @@ namespace CP.AnnualReviews.Controllers
                                              join r in _context.TblAnnualReviewCompetencyResponses on c.CompetencyNumber equals r.CompetencyNumber
                                              where r.AnnualReviewId == id
                                              select new TblAnnualReviewCompetency
-                                             { 
-                                                CompetencyNumber = c.CompetencyNumber,
-                                                CompetencyText = c.CompetencyText,
-                                                CompetencyDescription = c.CompetencyDescription,
-                                                ExperienceAndCapabilityRatingId = r.CompetencyResponseExperienceCapabilityRatingId,
-                                                Industries = r.CompetencyResponseIndustry,
-                                                Notes = r.CompetencyResponseNotes,
-                                                GrowthInterest = r.CompetencyResponseGrowthInterest
+                                             {
+                                                 CompetencyNumber = c.CompetencyNumber,
+                                                 CompetencyText = c.CompetencyText,
+                                                 CompetencyDescription = c.CompetencyDescription,
+                                                 ExperienceAndCapabilityRatingId = r.CompetencyResponseExperienceCapabilityRatingId,
+                                                 Industries = r.CompetencyResponseIndustry,
+                                                 Notes = r.CompetencyResponseNotes,
+                                                 GrowthInterest = r.CompetencyResponseGrowthInterest,
+                                                 Phases = (from ar in _context.TblAnnualReviews
+                                                           join pr in _context.TblAnnualReviewProgramPhaseResponses on ar.Id equals pr.AnnualReviewId into phaseResponse
+                                                           from pr in phaseResponse.DefaultIfEmpty()
+                                                           join ph in _context.TblAnnualReviewProgramPhases on pr.ProgramPhaseId equals ph.Id into phase
+                                                           from ph in phase.DefaultIfEmpty()
+                                                           where ar.Id == id && pr.CompetencyResponseId == c.CompetencyNumber
+                                                           select ph.ProgramPhase
+                                                           )
+                                                           .ToList(),
+                                                 Tools = (from ar in _context.TblAnnualReviews
+                                                          join ct in _context.TblAnnualReviewCompetencyToolsResponses on ar.Id equals ct.AnnualReviewId
+                                                          join tt in _context.TblAnnualReviewToolsoftheTrades on ct.ToolId equals tt.Id
+                                                          where ar.Id == id && ct.CompetencyResponseId == c.CompetencyNumber
+                                                          select tt.ToolName)
+                                                          .ToList()
                                              }).ToList(),
                              ToolsoftheTrade = (from t in _context.TblAnnualReviewToolsoftheTradeCategories
                                                 join r in _context.TblAnnualReviewToolsoftheTradeResponses on t.Id equals r.ToolsoftheTradeId
-                                                //join tt in _context.TblAnnualReviewToolsoftheTrades on r.ToolsoftheTradeId equals tt.ToolCategoryId into trade
-                                                //from tt in trade.DefaultIfEmpty()
                                                 where r.AnnualReviewId == id
                                                 select new TblAnnualReviewToolsoftheTradeCategory
-                                                { 
+                                                {
                                                     ToolCategoryName = t.ToolCategoryName,
-                                                    ToolRating = r.ToolsoftheTradeRating
+                                                    ToolName = (from ar in _context.TblAnnualReviews
+                                                                join tr in _context.TblAnnualReviewToolsoftheTradeResponses on ar.Id equals tr.AnnualReviewId
+                                                                join tt in _context.TblAnnualReviewToolsoftheTrades on tr.ToolsoftheTradeId equals tt.Id
+                                                                where ar.Id == id
+                                                                select tt.ToolName)
+                                                                .ToList()
                                                 })
                                                 .ToList()
                          })

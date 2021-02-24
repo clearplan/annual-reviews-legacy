@@ -1,0 +1,110 @@
+﻿@model CP.AnnualReviews.ViewModels.AnnualReviewModel
+@{
+    ViewData["Title"] = "User Review";
+}
+
+<div class="row">
+    <div class="col-sm-6">
+        <h3>
+            <span>@Model.FullName - Annual Review</span>
+        </h3>
+    </div>
+    <div class="col-sm-6 row justify-end">
+        <div>
+            <a href="javascript:void(0)" class="btn btn-success">
+                <i>
+                    <img src="~/img/download.svg" alt="Download icon" />
+                </i>
+                <span>Download Review</span>
+            </a>
+        </div>
+    </div>
+</div>
+<div>
+    <a asp-action="Index">Back to Annual Reviews</a>
+</div>
+<br />
+<section id="generalQuestions">
+    <h3>General Questions</h3>
+    <hr />
+    <dl>
+        @foreach (var question in Model.Questions)
+        {
+            <dt>
+                <span>@question.QuestionNumber<em>.</em></span>
+                <span>@question.QuestionText</span>
+            </dt>
+            <dd>@question.Response</dd>
+        }
+    </dl>
+</section>
+
+<section id="competencies">
+    <h3>Competencies</h3>
+    <hr />
+    @foreach (var c in Model.Competencies)
+    {
+        <dl class="row">
+            <dt class="col-sm-4">Competency:</dt>
+            <dd class="col-sm-8">@c.CompetencyText</dd>
+            <dt class="col-sm-4">Experience &amp; Capability Rating:</dt>
+            <dd class="col-sm-8">@(c.ExperienceAndCapabilityRatingId != null ? c.ExperienceAndCapabilityRatingId : "N/A")</dd>
+            <dt class="col-sm-4">Growth Interest:</dt>
+            <dd class="col-sm-8">@(c.GrowthInterest == true ? "Yes" : "No")</dd>
+            <dt class="col-sm-4">Description:</dt>
+            <dd class="col-sm-8">@c.CompetencyDescription</dd>
+            <dt class="col-sm-4">Program Phases:</dt>
+            <dd class="col-sm-8">
+                <ul class="list-unstyled">
+                    @foreach(var phase in c.Phases)
+                    {
+                        <li>@phase</li>
+                    }
+                </ul>
+            </dd>
+            <dt class="col-sm-4">Tools:</dt>
+            <dd class="col-sm-8">
+                <ul class="list-unstyled">
+                    @foreach(var tool in c.Tools)
+                    {
+                        <li>@tool</li>
+                    }
+                </ul>
+            </dd>
+            <dt class="col-sm-4">Industry:</dt>
+            <dd class="col-sm-8">@(!string.IsNullOrEmpty(c.Industries) ? c.Industries : "N/A")</dd>
+            <dt class="col-sm-4">Notes:</dt>
+            <dd class="col-sm-8">@(!string.IsNullOrEmpty(c.Notes) ? c.Notes : "N/A")</dd>
+        </dl>
+        <hr />
+    }
+</section>
+
+<section id="toolsoftheTrade">
+    <h3>Tools of the Trade</h3>
+    <hr />
+    @foreach (var t in Model.ToolsoftheTrade)
+    {
+        <dl class="row">
+            <dt class="col-sm-4">@t.ToolCategoryName</dt>
+            @foreach(var tool in t.ToolName)
+            {
+                <dd>@tool</dd>
+            }
+        </dl>
+        <hr />
+    }
+</section>
+
+<section id="managementComments">
+    <h3>Management Comments</h3>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-4">Manager</dt>
+        <dd class="col-sm-8">@(!string.IsNullOrEmpty(Model.CommentsBy) ? Model.CommentsBy : "N/A")</dd>
+        <dt class="col-sm-4">Comments date</dt>
+        <dd class="col-sm-8">@(Model.CommentsDate.HasValue ? Model.CommentsDate : "N/A")</dd>
+        <dt class="col-sm-4">Comments</dt>
+        <dd class="col-sm-8">@(!string.IsNullOrEmpty(Model.Comments) ? Model.Comments : "N/A")</dd>
+    </dl>
+</section>

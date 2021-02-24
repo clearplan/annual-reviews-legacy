@@ -48,6 +48,11 @@ a {
     justify-content: flex-end;
 }
 
+.list-unstyled {
+    padding-left: 1rem !important;
+    list-style: initial !important;
+}
+
 /* Sticky footer styles
 -------------------------------------------------- */
 html {

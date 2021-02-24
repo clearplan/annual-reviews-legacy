@@ -13,6 +13,7 @@ namespace CP.AnnualReviews.ViewModels
         public DateTime ReviewDate { get; set; }
         public int? ReviewerId { get; set; }
         public int? ReviewStatusId { get; set; }
+        public string ReviewStatus { get; set; }
         public string ReviewName { get; set; }
         public string LastName { get; set; }
         public string MiddleName { get; set; }

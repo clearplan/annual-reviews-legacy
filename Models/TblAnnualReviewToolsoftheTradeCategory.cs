@@ -20,10 +20,10 @@ namespace CP.AnnualReviews.Models
         public string ToolCategoryName { get; set; }
 
         [NotMapped]
-        public string ToolName { get; set; }
+        public int ToolRating { get; set; }
 
         [NotMapped]
-        public int ToolRating { get; set; }
+        public List<string> ToolName { get; set; }
 
 
     }

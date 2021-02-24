@@ -1,59 +1,91 @@
-﻿@model IEnumerable<CP.AnnualReviews.Models.TblAnnualReview>
+﻿@model IEnumerable<CP.AnnualReviews.ViewModels.AnnualReviewModel>
 
 @{
     ViewData["Title"] = "Annual Reviews";
+    string status = "";
 }
 
-<h1>@ViewData["Title"]</h1>
+<h2>@ViewData["Title"] (@ViewBag.Count)</h2>
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
+<br />
+
+<div class="mb-3">
+    <input type="text" class="form-control" id="search" placeholder="Type to filter the table" autofocus>
+</div>
+
 <table class="table">
     <thead>
         <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.ResourceId)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.ReviewDate)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.ReviewerId)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.ReviewStatusId)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.ReviewName)
-            </th>
+            <th>Id</th>
+            <th>Name</th>
+            <th>Manager</th>
+            <th>Review Date</th>
+            <th>Review Status</th>
             <th></th>
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.ResourceId)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ReviewDate)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ReviewerId)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ReviewStatusId)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ReviewName)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
-            </td>
-        </tr>
-}
+        @foreach (var data in Model)
+        {
+            @switch (data.ReviewStatus)
+            {
+                case "Submitted":
+                    status = "success";
+                    break;
+                case "Returned":
+                    status = "danger";
+                    break;
+                case "Completed":
+                    status = "info";
+                    break;
+                case "Not Started":
+                    status = "primary";
+                    break;
+                case "In Progress":
+                    status = "warning";
+                    break;
+            }
+            <tr>
+                <td>@data.Id</td>
+                <td>@data.FullName</td>
+                <td>@data.CommentsBy</td>
+                <td>@data.ReviewDate.Date.ToShortDateString()</td>
+                <td>
+                    <a href="javascript:void(0)" class="btn btn-@status btn-sm disabled">@data.ReviewStatus</a>
+                </td>
+                <td>
+                    <a asp-controller="AnnualReviews" asp-action="Review" asp-route-id="@data.Id">View</a> |
+                    <a asp-controller="AnnualReviews" asp-action="Edit" asp-route-id="@data.Id">Edit</a>
+                </td>
+            </tr>
+        }
     </tbody>
 </table>
+
+<script>
+    const search = document.querySelector('#search');
+    const tbody = document.querySelector('tbody');
+
+    search.addEventListener('keyup', function (e) {
+        let target = e.target;
+        searchTable(target.value);
+    });
+
+    function searchTable(value) {
+        let tr, td, filter;
+        filter = value.toLowerCase();
+        tr = tbody.querySelectorAll('tr');
+        for (let i = 0; i < tr.length; i++) {
+            let content = tr[i].textContent || tr[i].innerText || tr[i].innerHTML;
+            content = content.replace(/[\s]+/g, ' ');
+            if (content) {
+                if (content.toLowerCase().includes(filter)) {
+                    tr[i].classList.remove('hidden');
+                }
+                else {
+                    tr[i].classList.add('hidden');
+                }
+            }
+        }
+    }
+</script>
