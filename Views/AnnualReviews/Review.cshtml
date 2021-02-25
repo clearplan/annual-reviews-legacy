@@ -56,7 +56,7 @@
             <dt class="col-sm-4">Program Phases:</dt>
             <dd class="col-sm-8">
                 <ul class="list-unstyled">
-                    @foreach(var phase in c.Phases)
+                    @foreach (var phase in c.Phases)
                     {
                         <li>@phase</li>
                     }
@@ -65,7 +65,7 @@
             <dt class="col-sm-4">Tools:</dt>
             <dd class="col-sm-8">
                 <ul class="list-unstyled">
-                    @foreach(var tool in c.Tools)
+                    @foreach (var tool in c.Tools)
                     {
                         <li>@tool</li>
                     }
@@ -87,9 +87,11 @@
     {
         <dl class="row">
             <dt class="col-sm-4">@t.ToolCategoryName</dt>
-            @foreach(var tool in t.ToolName)
+            <dt class="col-sm-8">Experience &amp; Capability Rating</dt>
+            @foreach(var tool in t.Tools)
             {
-                <dd>@tool</dd>
+                <dd class="col-sm-4">@tool.ToolName</dd>
+                <dd class="col-sm-8">@tool.ToolRating</dd>
             }
         </dl>
         <hr />

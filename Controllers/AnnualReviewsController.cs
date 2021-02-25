@@ -117,18 +117,21 @@ namespace CP.AnnualReviews.Controllers
                                                           select tt.ToolName)
                                                           .ToList()
                                              }).ToList(),
-                             ToolsoftheTrade = (from t in _context.TblAnnualReviewToolsoftheTradeCategories
-                                                join r in _context.TblAnnualReviewToolsoftheTradeResponses on t.Id equals r.ToolsoftheTradeId
-                                                where r.AnnualReviewId == id
+                             ToolsoftheTrade = (from t1 in _context.TblAnnualReviewToolsoftheTradeCategories
+                                                join t2 in _context.TblAnnualReviewToolsoftheTradeResponses on t1.Id equals t2.ToolsoftheTradeId
+                                                where t2.AnnualReviewId == id
                                                 select new TblAnnualReviewToolsoftheTradeCategory
                                                 {
-                                                    ToolCategoryName = t.ToolCategoryName,
-                                                    ToolName = (from ar in _context.TblAnnualReviews
-                                                                join tr in _context.TblAnnualReviewToolsoftheTradeResponses on ar.Id equals tr.AnnualReviewId
-                                                                join tt in _context.TblAnnualReviewToolsoftheTrades on tr.ToolsoftheTradeId equals tt.Id
-                                                                where ar.Id == id
-                                                                select tt.ToolName)
-                                                                .ToList()
+                                                    ToolCategoryName = t1.ToolCategoryName,
+                                                    Tools = (from tr in _context.TblAnnualReviewToolsoftheTradeResponses
+                                                            join tt in _context.TblAnnualReviewToolsoftheTrades on tr.ToolsoftheTradeId equals tt.Id
+                                                            where tr.AnnualReviewId == id && tt.ToolCategoryId == t1.Id
+                                                            select new Tool
+                                                            { 
+                                                                ToolName = tt.ToolName,
+                                                                ToolRating = tr.ToolsoftheTradeRating
+                                                            })
+                                                            .ToList()
                                                 })
                                                 .ToList()
                          })
